@@ -4,8 +4,8 @@ $(document).ready(function () {
     var clicked = false;
     $(".uploadInput").change(function () {
         if ($(this).val() != "") {
-            $('.container').addClass('spinner').html("").height(207);
             $('.upload').submit();
+            //$('.container').addClass('spinner').html("").height(207);
         }
     });
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
             type: "POST",
             contentType: false,
             processData: false,
-            data: $(this).serialize()
+            data: new FormData($('.upload')[0])
         });
     });
 });

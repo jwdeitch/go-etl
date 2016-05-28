@@ -19,7 +19,6 @@ var Rows []Row
 
 func main() {
 	fmt.Println("running: http://localhost:9090")
-
 	http.HandleFunc("/process", process)
 	http.HandleFunc("/recieve", receive)
 	err := http.ListenAndServe(":9090", nil)
@@ -27,18 +26,17 @@ func main() {
 }
 
 func receive(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	r.ParseMultipartForm(10 << 20) // 10 Megabytes
-	file, handler, err := r.FormFile("spreadsheet")
 
+	file, handler, err := r.FormFile("spreadsheet")
 	Check(err)
 
 	defer file.Close()
-	fmt.Fprintf(w, "%v", handler.Header)
-	f, err := os.OpenFile("./test/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+
+	f, err := os.OpenFile("./uploads/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+	Check(err)
+
 	defer f.Close()
 	io.Copy(f, file)
 }
