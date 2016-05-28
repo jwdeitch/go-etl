@@ -5,7 +5,7 @@ $(document).ready(function () {
         if ($(this).val() != "") {
             $('.upload').submit();
             $('.upload-step').hide();
-            $('.container').addClass('spinner').height(207);
+            $('.container').addClass('spinner');
         }
     });
     $(".upload").click(function () {

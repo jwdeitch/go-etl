@@ -53,6 +53,9 @@ func openXlsx(path string) []Row {
 
 	var Rows []Row
 	for _, sheet := range xlFile.Sheets {
+		for _, col := range sheet.Cols {
+			fmt.Println(col)
+		}
 		for rowNumber, row := range sheet.Rows {
 			if rowNumber == 10 {
 				break
@@ -67,5 +70,9 @@ func openXlsx(path string) []Row {
 	}
 
 	return Rows
+
+}
+
+func removeEmptyCols() {
 
 }

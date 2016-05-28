@@ -97,3 +97,7 @@ http://stephanwagner.me/only-css-loading-spinner
     border: 1px solid black;
     text-align: center;
 }
+
+.sheet {
+    width: 100%
+}
