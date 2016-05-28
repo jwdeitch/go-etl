@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"os"
+	"time"
 	"io"
 	. "github.com/inturn/go-helpers"
 )
@@ -33,12 +34,19 @@ func receive(w http.ResponseWriter, r *http.Request) {
 	Check(err)
 
 	defer file.Close()
-
-	f, err := os.OpenFile("./uploads/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+	time := string((time.Now().Unix()))
+	filePath := "./uploads/"+handler.Filename + "_" + time
+	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	Check(err)
 
 	defer f.Close()
 	io.Copy(f, file)
+
+	openXlsx(filePath)
+	json, err := json.Marshal(Rows)
+	Check(err)
+	fmt.Fprintf(w, string(json))
+
 }
 
 func process(w http.ResponseWriter, r *http.Request) {
@@ -49,8 +57,7 @@ func process(w http.ResponseWriter, r *http.Request) {
 }
 
 func openXlsx(path string) {
-	excelFileName := path
-	xlFile, err := xlsx.OpenFile(excelFileName)
+	xlFile, err := xlsx.OpenFile(path)
 	Check(err)
 
 	for _, sheet := range xlFile.Sheets {
