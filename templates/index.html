@@ -8,20 +8,30 @@
     <link rel="stylesheet" href="css/css.css">
 
     <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/vue.js"></script>
     <script src="js/js.js"></script>
 
 </head>
 <body>
 <div class="container">
+    <div class="upload-step">
     <h1>Step 1
         <small>Upload your spreadsheet</small>
     </h1>
     <hr>
-
     <form action="https://localhost:9090/process" class="upload" enctype="multipart/form-data">
         <input type="file" class="uploadInput" name="spreadsheet">
         <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload
     </form>
+    </div>
+    <table class="sheet">
+
+        <tr class="row" v-for="row in spreadsheet" track-by="$index">
+            <td class="cell" v-for="cell in row.Cells" track-by="$index">
+                {{cell}}
+            </td>
+        </tr>
+    </table>
 
 </div>
 </body>

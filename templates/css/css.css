@@ -89,3 +89,11 @@ http://stephanwagner.me/only-css-loading-spinner
     animation: spinner .6s linear infinite;
     -webkit-animation: spinner .6s linear infinite;
 }
+
+.row {
+}
+
+.cell {
+    border: 1px solid black;
+    text-align: center;
+}
