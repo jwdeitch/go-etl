@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/css.css">
 
-    <script src="js/dropzone.js"></script>
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/js.js"></script>
 
 </head>
 <body>
@@ -17,12 +18,10 @@
     </h1>
     <hr>
 
-    <form action="/file-upload"
-          class="dropzone upload"
-          id="my-awesome-dropzone">
-        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+    <form action="/file-upload" class="upload">
+        <input type="file" class="uploadInput">
+        <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload
     </form>
-
 
 </div>
 </body>
