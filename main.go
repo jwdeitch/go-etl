@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"os"
 	"time"
+	"strconv"
 	"io"
 	. "github.com/inturn/go-helpers"
 )
@@ -34,7 +35,7 @@ func receive(w http.ResponseWriter, r *http.Request) {
 	Check(err)
 
 	defer file.Close()
-	time := string((time.Now().Unix()))
+	time := strconv.Itoa(int(time.Now().Unix()))
 	filePath := "./uploads/"+handler.Filename + "_" + time
 	f, err := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
 	Check(err)

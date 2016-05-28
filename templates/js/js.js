@@ -5,7 +5,7 @@ $(document).ready(function () {
     $(".uploadInput").change(function () {
         if ($(this).val() != "") {
             $('.upload').submit();
-            //$('.container').addClass('spinner').html("").height(207);
+            $('.container').addClass('spinner').html("").height(207);
         }
     });
 
@@ -22,7 +22,12 @@ $(document).ready(function () {
             type: "POST",
             contentType: false,
             processData: false,
-            data: new FormData($('.upload')[0])
+            data: new FormData($('.upload')[0]),
+            success: function() {
+                $('.container').removeClass("spinner").animate({
+                    width: "80%"
+                })
+            }
         });
     });
 });
