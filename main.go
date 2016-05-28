@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"encoding/json"
+	"os"
+	"io"
 	. "github.com/inturn/go-helpers"
 )
 
@@ -19,8 +21,26 @@ func main() {
 	fmt.Println("running: http://localhost:9090")
 
 	http.HandleFunc("/process", process)
+	http.HandleFunc("/recieve", receive)
 	err := http.ListenAndServe(":9090", nil)
 	Check(err)
+}
+
+func receive(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(10 << 20) // 10 Megabytes
+	file, handler, err := r.FormFile("spreadsheet")
+
+	Check(err)
+
+	defer file.Close()
+	fmt.Fprintf(w, "%v", handler.Header)
+	f, err := os.OpenFile("./test/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+	io.Copy(f, file)
 }
 
 func process(w http.ResponseWriter, r *http.Request) {

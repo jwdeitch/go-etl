@@ -28,6 +28,7 @@ hr {
     width: 100%;
     background-color: #FAFAFA;
     color: #999999;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +53,10 @@ small {
 
 
 
-/*Loading spinner*/
+/*
+Loading spinner
+http://stephanwagner.me/only-css-loading-spinner
+*/
 @keyframes spinner {
     to {transform: rotate(360deg);}
 }
